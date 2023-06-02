@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login</title>
+</head>
+<body>
+<div style="text-align: center;">
+<h1>Welcome to admin login page</h1>
+<h4>If the credentials were wrong you will be redirected to this same page after clicking Login button</h4>
+    <form action="adminForm" method="post">
+        <label>Admin Name : </label>
+        <input type="text" name="adminName"> <br/>
+        <br/>
+        <label>Password : </label>
+        <input type="password" name="password" placeholder="password"> <br/>
+        <br/>
+
+        <input type="submit" value="LogIn" />
+
+    </form>
+    <br/>
+    <form action="/" method="get">
+        <input type="submit" value="Back" class="submit-button primary" />
+    </form>
+
+
+</div>
+</body>
+</html>

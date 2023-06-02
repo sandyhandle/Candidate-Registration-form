@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Profile</title>
+  <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+  <H1>Welcome Back Admin, </H1>
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Candidate Name</th>
+      <th>Email</th>
+      <th>Address</th>
+      <th>State</th>
+      <th>Phone Number</th>
+      <th>Qualification</th>
+      <th>Gender</th>
+      <th>Skills</th>
+      <th>Approval</th>
+      <th>Paid Amount</th>
+      <!-- Add more columns as needed -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="entity : ${entities}">
+      <td th:text="${entity.id}"></td>
+      <td th:text="${entity.candidateName}"></td>
+      <td th:text="${entity.email}"></td>
+      <td th:text="${entity.address}"></td>
+      <td th:text="${entity.state}"></td>
+      <td th:text="${entity.phoneNumber}"></td>
+      <td th:text="${entity.qualification}"></td>
+      <td th:text="${entity.gender}"></td>
+      <td th:text="${entity.skills}"></td>
+      <td th:text="${entity.approved}"></td>
+      <td th:text="${entity.paidAmount}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  </br>
+  <div style="text-align: center;">
+  <h3>In order to update the approval, fill the id in the box below and click submit button</h3>
+  `<form action="adminUpdateForm" method="post">
+    <label>Id: </label>
+    <input type="number" name="ID" placeholder="Enter an ID"> <br/>
+    </br>
+    <input type="submit" value="Submit" />
+  </form>
+
+
+  <br/>
+  <form action="adminLogout" method="post">
+    <input type="submit" value="Log out" />
+  </form>
+  <br/>
+  </div>
+
+
+
+
+</body>
+</html>
