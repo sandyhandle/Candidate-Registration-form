@@ -1,8 +1,10 @@
 package com.registration.controller;
 
 import com.registration.model.Candidate;
-import com.registration.services.RepositoryServices;
+import com.registration.services.CandidateService;
 import jakarta.servlet.http.HttpSession;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,20 +14,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class CandidateControler {
+public class CandidateController {
+
+    Logger logger = LoggerFactory.getLogger(CandidateController.class);
 
     @Autowired
-    private RepositoryServices services;
+    private CandidateService services;
     @PostMapping("/candidateData")
     public String candidateRegistrationPageLoder(@ModelAttribute Candidate candidate, Model model){
-        System.out.println(candidate.toString());
+        logger.info(candidate.toString());
         if (candidate.getCandidateName().equals("")){
             return "newCandidate";
         }
         model.addAttribute("candidateName",candidate.getCandidateName());
 
         services.save(candidate);
-        System.out.println("Candidate saved successfully to the database :) ");
+       logger.info("Candidate saved successfully to the database :) ");
 
 
         return "candidateRegistrationSuccessful";
@@ -48,8 +52,9 @@ public class CandidateControler {
     @PostMapping("/candidateProfile")
     public String candidateProfilePageLoder(@RequestParam("candidateName") String candidateName, @RequestParam("email") String email, Model model, HttpSession session){
 
-        System.out.println("Candidate Name: "+ candidateName);
-        System.out.println("Password: " + email);
+        // These and all sensitive datas only logging temporary
+        logger.info("Candidate Name: "+ candidateName);
+        logger.info("Password: " + email);
 
         Candidate c = services.getCandidate(candidateName, email);
         if (c != null){

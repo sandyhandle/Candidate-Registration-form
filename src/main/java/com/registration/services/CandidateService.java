@@ -3,17 +3,17 @@ package com.registration.services;
 import com.registration.model.Candidate;
 import com.registration.repositories.CandidateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
-public class RepositoryServices {
+@Service
+public class CandidateService {
 
     @Autowired
     private CandidateRepository repository;
 
-    public RepositoryServices(CandidateRepository repository) {
+    public CandidateService(CandidateRepository repository) {
         this.repository = repository;
     }
 
