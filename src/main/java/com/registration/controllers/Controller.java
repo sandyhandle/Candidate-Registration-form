@@ -1,25 +1,48 @@
-package com.registration.controller;
+package com.registration.controllers;
+
 
 import com.registration.model.Candidate;
 import com.registration.services.CandidateService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@Controller
-public class CandidateController {
+import java.util.List;
+@org.springframework.stereotype.Controller
 
-    Logger logger = LoggerFactory.getLogger(CandidateController.class);
+public class Controller {
 
     @Autowired
     private CandidateService services;
+
+    Logger logger = LoggerFactory.getLogger(Controller.class);
+
+    // For login page
+
+    @GetMapping("/")
+    public String loginLoder(){
+        return "index";
+    }
+
+    @GetMapping("/adminLogin")
+    public String adminLoginPageLoder(){
+        return "adminLogin";
+    }
+
+    @GetMapping("/candidateLogin")
+    public String candidateLoginLoder(){
+        return "candidateLogin";
+    }
+
+    // for candidate
+
     @PostMapping("/candidateData")
     public String candidateRegistrationPageLoder(@ModelAttribute Candidate candidate, Model model){
         logger.info(candidate.toString());
@@ -29,25 +52,16 @@ public class CandidateController {
         model.addAttribute("candidateName",candidate.getCandidateName());
 
         services.save(candidate);
-       logger.info("Candidate saved successfully to the database :) ");
+        logger.info("Candidate saved successfully to the database :) ");
 
 
         return "candidateRegistrationSuccessful";
     }
-
-    @GetMapping("/candidateData")
-    public String candidateRegistrationEmptyCall(){
-        return "candidateLogin";
-    }
-    @PostMapping("/newCandidate")
-    public String newCandidateCall(){
+    @GetMapping("newCandidate")
+    public String newCandidatepageLoder(){
         return "newCandidate";
     }
 
-    @GetMapping("/newCandidate")
-    public String newCandidateDirectCall(){
-        return "newCandidate";
-    }
 
     @PostMapping("/candidateProfile")
     public String candidateProfilePageLoder(@RequestParam("candidateName") String candidateName, @RequestParam("email") String email, Model model, HttpSession session){
@@ -56,7 +70,7 @@ public class CandidateController {
         logger.info("Candidate Name: "+ candidateName);
         logger.info("Password: " + email);
 
-        Candidate c = services.getCandidate(candidateName, email);
+        Candidate c = services.getCandidateByNameAndEmail(candidateName, email);
         if (c != null){
             session.setAttribute("candidate", c);
             String approve;
@@ -82,15 +96,7 @@ public class CandidateController {
         }
         return "candidateLogin";
     }
-    @GetMapping("/candidateProfile")
-    public String candidateProfileEmptyCall(){
-        return "candidateLogin";
-    }
 
-    @GetMapping("/candidateLogin")
-    public String candidateLogin(){
-        return "candidateLogin";
-    }
     @PostMapping("/paymentPage")
     public String handlePayment(@RequestParam("paymentAmount") int paymentAmount,  Model model, HttpSession session) {
         // Get the candidate object based on the session
@@ -152,7 +158,37 @@ public class CandidateController {
             model.addAttribute("paidAmount",c.getPaidAmount());
             return "candidateProfile";
         }
+    }
 
+    // for Admin page
+
+    @PostMapping("/adminForm")
+    public String adminPageLoder(@RequestParam("adminName") String adminName, @RequestParam("password") String password, Model model){
+        if (adminName.equals("admin") && password.equals("admin")){
+            List<Candidate> candidates = services.getAllCandidates();
+            model.addAttribute("entities", candidates);
+            return "adminProfile";
+        }else {
+            return "adminLogin";
+        }
+    }
+
+    @PostMapping("/adminUpdateForm")
+    public String updatingTheApproval(@RequestParam(value = "ID", required = false) Long id, Model model, HttpServletRequest request) {
+        if (id != null){
+            Candidate c = services.getCandidateById(id);
+            if (c != null){
+                if (c.getApproved() == true){
+                    c.setApproved(false);
+                }else {
+                    c.setApproved(true);
+                }
+                services.save(c);
+            }
+        }
+        List<Candidate> candidates = services.getAllCandidates();
+        model.addAttribute("entities", candidates);
+        return "adminProfile";
 
     }
 
