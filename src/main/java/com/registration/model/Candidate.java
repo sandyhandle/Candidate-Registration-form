@@ -55,6 +55,7 @@ public class Candidate {
         this.gender = gender;
         this.skills = skills;
     }
+
     public void setPaidAmount(int paidAmount) {
         this.paidAmount += paidAmount;
     }

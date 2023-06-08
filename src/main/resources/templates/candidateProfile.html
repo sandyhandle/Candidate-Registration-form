@@ -5,34 +5,34 @@
     <title>Candidate Profile</title>
 </head>
 <body>
-    <h1 th:text="#{happy.working(${candidateName})}"> working</h1>
+<h1 th:text="#{happy.working(${candidateName})}"> working</h1>
 
 
-    <h2>ID                 : <span th:text="${id}">id</span></h2>
-    <h2>Candidate Name     : <span th:text="${candidateName}">name</span></h2>
-    <h2>Email              : <span th:text="${email}">email</span></h2>
-    <h2>Address            : <span th:text="${address}">address</span></h2>
-    <h2>City               : <span th:text="${city}">city</span></h2>
-    <h2>State              : <span th:text="${state}">state</span></h2>
-    <h2>Phone Number       : <span th:text="${phoneNumber}">phon</span></h2>
-    <h2>Qualification      : <span th:text="${qualification}">quali</span></h2>
-    <h2>Gender             : <span th:text="${gender}">gender</span></h2>
-    <h2>Skills             : <span th:text="${skills}">skills</span></h2>
-    <h2>You Application is : <span th:text="${approved}">appro</span></h2>
-    <h2>Amount Paid        : <span th:text="${paidAmount}">amount</span></h2>
+<h2>ID : <span th:text="${id}">id</span></h2>
+<h2>Candidate Name : <span th:text="${candidateName}">name</span></h2>
+<h2>Email : <span th:text="${email}">email</span></h2>
+<h2>Address : <span th:text="${address}">address</span></h2>
+<h2>City : <span th:text="${city}">city</span></h2>
+<h2>State : <span th:text="${state}">state</span></h2>
+<h2>Phone Number : <span th:text="${phoneNumber}">phon</span></h2>
+<h2>Qualification : <span th:text="${qualification}">quali</span></h2>
+<h2>Gender : <span th:text="${gender}">gender</span></h2>
+<h2>Skills : <span th:text="${skills}">skills</span></h2>
+<h2>You Application is : <span th:text="${approved}">appro</span></h2>
+<h2>Amount Paid : <span th:text="${paidAmount}">amount</span></h2>
 
-    <br/>
-    <form action="paymentPage" method="get">
-        <input type="submit" value="Payment Page" />
-    </form>
-    <br/>
+<br/>
+<form action="paymentPage" method="get">
+    <input type="submit" value="Payment Page"/>
+</form>
+<br/>
 
 
-    <br/>
-    <form action="candidateLogin" method="get">
-        <input type="submit" value="Log out" />
-    </form>
-    <br/>
+<br/>
+<form action="candidateLogin" method="get">
+    <input type="submit" value="Log out"/>
+</form>
+<br/>
 
 </body>
 </html>
